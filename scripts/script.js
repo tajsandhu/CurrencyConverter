@@ -22,19 +22,24 @@ async function fillCurrencies() {
 
 // update value
 async function updateValue() {
-    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
-    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text;
-    var fetchRequest;
-    if (dateSelector.value === '') {
-        fetchRequest = 'https://api.exchangeratesapi.io/latest?base=';
+    if (inputBox.validity.valid == false) {
+        valueBox.innerHTML = "Invalid: Please Enter a Number";
     } else {
-        fetchRequest = 'https://api.exchangeratesapi.io/' + dateSelector.value + '?base=';
+        var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
+        var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text;
+        var fetchRequest;
+        if (dateSelector.value === '') {
+            fetchRequest = 'https://api.exchangeratesapi.io/latest?base=';
+        } else {
+            fetchRequest = 'https://api.exchangeratesapi.io/' + dateSelector.value + '?base=';
+        }
+        await fetch(fetchRequest + baseCurrencyName + '&symbols=' + relativeCurrencyName)
+            .then(response => response.json())
+            .then(data => {
+                valueBox.innerHTML = (data['rates'][relativeCurrencyName] * inputValue).toFixed(2);
+            });
     }
-    await fetch(fetchRequest + baseCurrencyName + '&symbols=' + relativeCurrencyName)
-        .then(response => response.json())
-        .then(data => {
-            valueBox.innerHTML = (data['rates'][relativeCurrencyName] * inputValue).toFixed(2);
-        });
+    
 }
 
 // adds these currencies to the drop down lists
