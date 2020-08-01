@@ -3,6 +3,7 @@ var relativeCurrency = document.body.querySelector('#relative_currency');
 var valueBox = document.body.querySelector('#value_box');
 var inputBox = document.body.querySelector('#value_input');
 var currencyLists = document.body.querySelectorAll('.country_drop_down');
+var dateSelector = document.body.querySelector('#date_selector');
 var inputValue = Number(inputBox.value);
 var currencies = ["CAD","HKD","ISK","PHP","DKK","HUF","CZK","AUD","RON","SEK","IDR", 
                         "INR","BRL","RUB","HRK","JPY","THB","CHF","SGD","PLN","BGN","TRY",
@@ -23,8 +24,13 @@ async function fillCurrencies() {
 async function updateValue() {
     var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
     var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text;
-    await fetch('https://api.exchangeratesapi.io/latest?base=' + baseCurrencyName
-        + '&symbols=' + relativeCurrencyName)
+    var fetchRequest;
+    if (dateSelector.value === '') {
+        fetchRequest = 'https://api.exchangeratesapi.io/latest?base=';
+    } else {
+        fetchRequest = 'https://api.exchangeratesapi.io/' + dateSelector.value + '?base=';
+    }
+    await fetch(fetchRequest + baseCurrencyName + '&symbols=' + relativeCurrencyName)
         .then(response => response.json())
         .then(data => {
             valueBox.innerHTML = (data['rates'][relativeCurrencyName] * inputValue).toFixed(2);
@@ -52,6 +58,10 @@ relativeCurrency.addEventListener('change', (event) => {
         baseCurrency.value = baseCurrency.options[nextOption].text;
     }
 });
+
+dateSelector.addEventListener('change', () => {
+    updateValue();
+})
 
 
 // displays the value of the base currency in the relative currency
