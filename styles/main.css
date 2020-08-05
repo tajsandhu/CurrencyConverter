@@ -1,39 +1,108 @@
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+
+body {
+    font-size: 2.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #393939;
+    background: #EEEEEE;
+}
+
 input[type=number] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+h1 {
+    width: min-content;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.input_section {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.values {
+    flex-direction: column-reverse;
+}
+
+.labeled_input {
+    margin: 1%;
+}
+
+.date_input {
+    width: 87.5%;
 }
 
 label {
     display: block;
 }
 
-.grid_form {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+input {
+    width: 95%;
+    font-size: 5.5vw;
+    padding: 2.5% 1%;
+    margin: 1%;
+    box-shadow: 5px 5px 3px -1px #2F89FC;
 }
 
-.labeled_input1 {
-    grid-column: 1;
-    grid-row: 1;
+select {
+    width: 95%;
+    font-size: 5.5vw;
+    box-sizing: content-box;
+    padding: 2.5% 1%;
+    margin: 1%;
+    box-shadow: 5px 5px 3px -1px #2F89FC;
 }
 
-.labeled_input2 {
-    grid-column: 1;
-    grid-row: 2;
-}
+@media screen and (min-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 25px;
+    }
 
-.labeled_input3 {
-    grid-column: 2;
-    grid-row: 2;
-}
+    form {
+        width: max(50%, 900px);
+    }
 
-.labeled_input4 {
-    grid-column: 2;
-    grid-row: 3;
+    .input_section {
+        flex-direction: row;
+    }
+
+    .labeled_input {
+        width: 50%;
+    }
+
+    input {
+        font-size: 30px;
+        padding: 2% 1%;
+        border: darkgray 1px solid;
+    }
+
+    select {
+        font-size: 30px;
+        padding: 2% 1%;
+        border: darkgray 1px solid;
+        background: url('../res/keyboard_arrow_down-black-18dp.svg');
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: white;
+        -webkit-appearance: none;
+    }
+
 }

@@ -9,6 +9,19 @@ var currencies = ["CAD","HKD","ISK","PHP","DKK","HUF","CZK","AUD","RON","SEK","I
                         "INR","BRL","RUB","HRK","JPY","THB","CHF","SGD","PLN","BGN","TRY",
                         "CNY","NOK","NZD","ZAR","USD","MXN","ILS","GBP","KRW","MYR", "EUR"];
 
+function getDate() {
+    var today = new Date();
+    var yyyy = today.getFullYear();
+    var mm = today.getMonth() + 1;
+    var dd = today.getDate();
+    if (mm.length < 2)
+        mm = '0' + mm;
+    if (dd.length < 2)
+        dd = '0' + dd;
+    
+    return (yyyy + '-' + mm + '-' + dd);
+}
+
 // gets a list of all currencies available from the European Central Bank
 async function fillCurrencies() {
     currencies.sort();
@@ -23,20 +36,20 @@ async function fillCurrencies() {
 // update value
 async function updateValue() {
     if (inputBox.validity.valid == false) {
-        valueBox.innerHTML = "Invalid: Please Enter a Number";
+        valueBox.value = "Invalid: Please Enter a Number";
     } else {
         var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
         var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text;
         var fetchRequest;
         if (dateSelector.value === '') {
-            fetchRequest = 'https://api.exchangeratesapi.io/latest?base=';
+            fetchRequest = 'https://api.exchangeratesapi.io/' + getDate() + '?base=';
         } else {
             fetchRequest = 'https://api.exchangeratesapi.io/' + dateSelector.value + '?base=';
         }
         await fetch(fetchRequest + baseCurrencyName + '&symbols=' + relativeCurrencyName)
             .then(response => response.json())
             .then(data => {
-                valueBox.innerHTML = (data['rates'][relativeCurrencyName] * inputValue).toFixed(2);
+                valueBox.value = (data['rates'][relativeCurrencyName] * inputValue).toFixed(2);
             });
     }
     

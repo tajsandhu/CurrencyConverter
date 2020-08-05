@@ -5,32 +5,39 @@
         <meta charset="utf-08">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="A simple website for converting currencies">
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <link rel="stylesheet" type="text/css" href="styles/normalize.css">
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="shortcut icon" href="#" />
         <script src="scripts/script.js" defer></script>
     </head>
     <body>
         <header>
-
         </header>
-        <div id="value_box"></div>
-        <form class="grid_form">
-            <div class="labeled_input1">
-                <label for="value_input">Amount:</label>
-                <input type="number" value="1" id="value_input">
-            </div>
-            <div class="labeled_input2">
-                <label for="base_currency">From:</label>
-                <select class="country_drop_down" id="base_currency">
-                </select>
-            </div>
-            <div class="labeled_input3">
-                <label for="relative_currency">To:</label>
-                <select class="country_drop_down" id="relative_currency">
-                </select>
-            </div>
-            <div class="labeled_input4">
+        <form>
+            <h1>Currency Converter</h1>
+            <section class="input_section values">
+                <div class="labeled_input">
+                    <label for="value_input">Amount:</label>
+                    <input type="number" value="1.00" id="value_input">
+                </div>
+                <div class="labeled_input"> 
+                    <label for="value_box">Value:</label>
+                    <input id="value_box" readonly></input>
+                </div>
+            </section>
+            <section class="input_section">
+                <div class="labeled_input">
+                    <label for="base_currency">From:</label>
+                    <select class="country_drop_down" id="base_currency">
+                    </select>
+                </div>
+                <div class="labeled_input">
+                    <label for="relative_currency">To:</label>
+                    <select class="country_drop_down" id="relative_currency">
+                    </select>
+                </div> 
+            </section>
+            <div class="labeled_input date_input">
                 <label for="date_selector">Date:</label>
                 <input type="date" value="2020-06-31" id="date_selector">
             </div>
