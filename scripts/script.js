@@ -5,9 +5,13 @@ var inputBox = document.body.querySelector('#value_input');
 var currencyLists = document.body.querySelectorAll('.country_drop_down');
 var dateSelector = document.body.querySelector('#date_selector');
 var inputValue = Number(inputBox.value);
-var currencies = ["CAD","HKD","ISK","PHP","DKK","HUF","CZK","AUD","RON","SEK","IDR", 
-                        "INR","BRL","RUB","HRK","JPY","THB","CHF","SGD","PLN","BGN","TRY",
-                        "CNY","NOK","NZD","ZAR","USD","MXN","ILS","GBP","KRW","MYR", "EUR"];
+var currencies = {"CAD": "Canadian Dollar","HKD": "Hong Kong Dollar","ISK": "Icelandic Krona","PHP": "Philippine Pesa","DKK": "Danish Krone",
+                    "HUF": "Hungarian Forint","CZK": "Czech Koruna","AUD": "Australian Dollar","RON": "Romanian Leu","SEK": "Swedish Krona",
+                    "IDR": "Indian Rupee", "INR": "Indonesian Rupiah","BRL": "Brazilian Real","RUB": "Russian Rouble","HRK": "Croatian Kuna",
+                    "JPY": "Japanese Yen","THB": "Thai Baht","CHF": "Swiss Franc","SGD": "Singapore Dollar","PLN": "Polish Zloty","BGN": "Bulgarian Lev",
+                    "TRY": "Turkish Lira","CNY": "Chinese Yuan Renminbi","NOK": "Norwegian Krone","NZD": "New Zealand Dollar","ZAR": "South African Rand",
+                    "USD": "United States Dollar","MXN": "Mexican Peso","ILS": "Israeli Shekel","GBP": "Pound Sterling","KRW": "South Korean Won",
+                    "MYR": "Malaysian Ringgit", "EUR": "European Euro"};
 
 function getDate() {
     var today = new Date();
@@ -24,13 +28,15 @@ function getDate() {
 
 // gets a list of all currencies available from the European Central Bank
 async function fillCurrencies() {
-    currencies.sort();
+    currencyNames = Object.keys(currencies);
+    currencyNames.sort();
     for (var list of currencyLists) {
-        for (const currency of currencies) {
-            list.innerHTML += ('<option value="' + currency + '">' + currency + '</option>');
+        for (const currency of currencyNames) {
+            list.innerHTML += ('<option value="' + currency + '">' + currency + 
+                ' - ' + currencies[currency] + '</option>');
         }
     }
-    currencyLists[1].value = currencyLists[1].options[1].text;
+    currencyLists[1].value = currencyLists[1].options[1].value;
 }
 
 // update value
@@ -38,8 +44,8 @@ async function updateValue() {
     if (inputBox.validity.valid == false) {
         valueBox.value = "Invalid: Please Enter a Number";
     } else {
-        var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
-        var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text;
+        var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
+        var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value;
         var fetchRequest;
         if (dateSelector.value === '') {
             fetchRequest = 'https://api.exchangeratesapi.io/' + getDate() + '?base=';
@@ -59,21 +65,30 @@ async function updateValue() {
 fillCurrencies()
     .then( () => updateValue());
 
+function swapCurrencies() {
+    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
+    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value;
+    var temp = baseCurrencyName;
+    baseCurrency.value = relativeCurrencyName;
+    relativeCurrency.value = temp;
+    updateValue();
+}
+
 baseCurrency.addEventListener('change', (event) => {
-    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
-    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text
+    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
+    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value
     if (baseCurrencyName == relativeCurrencyName) {
         let nextOption = (relativeCurrency.selectedIndex += 1) %  currencies.length;
-        relativeCurrency.value = relativeCurrency.options[nextOption].text;
+        relativeCurrency.value = relativeCurrency.options[nextOption].value;
     }
 });
 
 relativeCurrency.addEventListener('change', (event) => {
-    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].text;
-    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].text
+    var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
+    var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value
     if (baseCurrencyName == relativeCurrencyName) {
         let nextOption = (baseCurrency.selectedIndex += 1) %  currencies.length;
-        baseCurrency.value = baseCurrency.options[nextOption].text;
+        baseCurrency.value = baseCurrency.options[nextOption].value;
     }
 });
 

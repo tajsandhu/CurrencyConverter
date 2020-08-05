@@ -29,6 +29,10 @@ form {
     width: 100%;
 }
 
+i {
+    font-size: 80px;
+}
+
 .input_section {
     display: flex;
     flex-direction: column;
@@ -41,6 +45,14 @@ form {
 
 .labeled_input {
     margin: 1%;
+}
+
+.swap_button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding-top: 2vh;
+    font-size: 35px;
 }
 
 .date_input {
@@ -68,6 +80,10 @@ select {
     box-shadow: 5px 5px 3px -1px #2F89FC;
 }
 
+select option span {
+    font-size: 4.5vw;
+}
+
 @media screen and (min-width: 768px) {
     body {
         display: flex;
@@ -78,6 +94,14 @@ select {
 
     form {
         width: max(50%, 900px);
+    }
+
+    .swap_button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        padding-top: 2vh;
+        font-size: 35px;
     }
 
     .input_section {
