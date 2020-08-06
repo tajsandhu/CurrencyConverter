@@ -68,7 +68,12 @@ input {
     font-size: 5.5vw;
     padding: 2.5% 1%;
     margin: 1%;
-    box-shadow: 5px 5px 3px -1px #2F89FC;
+    border-radius: 10px;
+    /*box-shadow: 5px 5px 3px -1px #2F89FC;*/
+}
+
+input:focus {
+    border: #2F89FC 2px solid;
 }
 
 select {
@@ -77,7 +82,11 @@ select {
     box-sizing: content-box;
     padding: 2.5% 1%;
     margin: 1%;
-    box-shadow: 5px 5px 3px -1px #2F89FC;
+    border-radius: 10px;
+}
+
+select:focus {
+    border: #2F89FC 2px solid;    
 }
 
 select option span {
@@ -118,6 +127,10 @@ select option span {
         border: darkgray 1px solid;
     }
 
+    input:focus {
+        border: #2F89FC 2px solid;
+    }
+
     select {
         font-size: 30px;
         padding: 2% 1%;
@@ -127,6 +140,10 @@ select option span {
         background-position: right;
         background-color: white;
         -webkit-appearance: none;
+    }
+
+    select:focus {
+        border: #2F89FC 2px solid;    
     }
 
 }
