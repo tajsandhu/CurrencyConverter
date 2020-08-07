@@ -13,6 +13,7 @@ var currencies = {"CAD": "Canadian Dollar","HKD": "Hong Kong Dollar","ISK": "Ice
                     "USD": "United States Dollar","MXN": "Mexican Peso","ILS": "Israeli Shekel","GBP": "Pound Sterling","KRW": "South Korean Won",
                     "MYR": "Malaysian Ringgit", "EUR": "European Euro"};
 
+// retrieves the date in a yyyy-mm-dd format
 function getDate() {
     var today = new Date();
     var yyyy = today.getFullYear();
@@ -39,7 +40,7 @@ async function fillCurrencies() {
     currencyLists[1].value = currencyLists[1].options[1].value;
 }
 
-// update value
+// updates the converted currency value
 async function updateValue() {
     if (inputBox.validity.valid == false) {
         valueBox.value = "Invalid: Please Enter a Number";
@@ -47,6 +48,7 @@ async function updateValue() {
         var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
         var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value;
         var fetchRequest;
+        // if no date is currently selected, retrieves data for current day
         if (dateSelector.value === '') {
             fetchRequest = 'https://api.exchangeratesapi.io/' + getDate() + '?base=';
         } else {
@@ -74,7 +76,8 @@ function swapCurrencies() {
     updateValue();
 }
 
-baseCurrency.addEventListener('change', (event) => {
+// if the base currency matches the relative currency, the relative currency is changed
+baseCurrency.addEventListener('change', () => {
     var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
     var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value
     if (baseCurrencyName == relativeCurrencyName) {
@@ -83,7 +86,8 @@ baseCurrency.addEventListener('change', (event) => {
     }
 });
 
-relativeCurrency.addEventListener('change', (event) => {
+// if the relative currency matches the base currency, the relative currency is changed
+relativeCurrency.addEventListener('change', () => {
     var baseCurrencyName = baseCurrency.options[baseCurrency.selectedIndex].value;
     var relativeCurrencyName = relativeCurrency.options[relativeCurrency.selectedIndex].value
     if (baseCurrencyName == relativeCurrencyName) {
@@ -92,6 +96,7 @@ relativeCurrency.addEventListener('change', (event) => {
     }
 });
 
+// updates the values when a new date is selected
 dateSelector.addEventListener('change', () => {
     updateValue();
 })
