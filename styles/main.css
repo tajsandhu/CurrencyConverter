@@ -5,8 +5,65 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #393939;
     background: #EEEEEE;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 
+        "title"
+        "main"
+        "bottom";
+    grid-template-rows: 1fr 2fr 1fr;
+    align-items: center;
+    justify-content: center;
 }
 
+#site_header {
+    grid-area: title;
+}
+
+form {
+    padding: 20px;
+    grid-area: main;
+    display: grid;
+    grid-template-areas: 
+        "base-value"
+        "base-currency"
+        "swap"
+        "converted-value"
+        "converted-currency"
+        "date";
+}
+
+#base_value {
+    grid-area: base-value;
+}
+
+#base_currency {
+    grid-area: base-currency;
+}
+
+.swap_button {
+    grid-area: swap;
+}
+
+#converted_value {
+    grid-area: converted-value;
+}
+
+#to_currency {
+    grid-area: converted-currency;
+}
+
+#date {
+    grid-area: date;
+}
+
+.labeled_input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+}
+
+/*
 input[type=number] {
   -moz-appearance: textfield;
 }
@@ -133,4 +190,5 @@ select option span {
         -webkit-appearance: none;
     }
 
-}
+}*/
+
