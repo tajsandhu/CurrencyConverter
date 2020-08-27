@@ -1,5 +1,5 @@
-var baseCurrency = document.body.querySelector('#base_currency');
-var relativeCurrency = document.body.querySelector('#relative_currency');
+var baseCurrency = document.body.querySelector('#base_currency select');
+var relativeCurrency = document.body.querySelector('#to_currency select');
 var valueBox = document.body.querySelector('#value_box');
 var inputBox = document.body.querySelector('#value_input');
 var currencyLists = document.body.querySelectorAll('.country_drop_down');
